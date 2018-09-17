@@ -18,7 +18,8 @@ mode        : selfcontained # {standalone, draft}
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
 # make this an external chunk that can be included in any file
 options(width = 100)
-opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+library(knitr)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'E:/Conrad_github/courses/08_PracticalMachineLearning/020bagging/fig/')
 
 options(xtable.type = 'html')
 knit_hooks$set(inline = function(x) {
@@ -98,6 +99,7 @@ lines(1:155,apply(ll,2,mean),col="red",lwd=2)
 ## More bagging in caret
 
 ```{r bag1}
+library(caret)
 predictors = data.frame(ozone=ozone$ozone)
 temperature = ozone$temperature
 treebag <- bag(predictors, temperature, B = 10,

@@ -18,7 +18,8 @@ mode        : selfcontained # {standalone, draft}
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
 # make this an external chunk that can be included in any file
 options(width = 100)
-opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+library(knitr)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'E:/Conrad_github/courses/08_PracticalMachineLearning/016preProcessingPCA/fig/')
 
 options(xtable.type = 'html')
 knit_hooks$set(inline = function(x) {
@@ -158,7 +159,7 @@ plot(spamPC[,1],spamPC[,2],col=typeColor)
 ```{r pcaCaret,dependson="spamPC",cache=TRUE,fig.height=3.5,fig.width=3.5}
 preProc <- preProcess(log10(training[,-58]+1),method="pca",pcaComp=2)
 trainPC <- predict(preProc,log10(training[,-58]+1))
-modelFit <- train(training$type ~ .,method="glm",data=trainPC)
+modelFit <- train(x = trainPC,y=training$type,method="glm")
 ```
 
 ---
@@ -175,8 +176,8 @@ confusionMatrix(testing$type,predict(modelFit,testPC))
 ## Alternative (sets # of PCs)
 
 ```{r ,dependson="pcaCaret",cache=TRUE,fig.height=3.5,fig.width=3.5}
-modelFit <- train(training$type ~ .,method="glm",preProcess="pca",data=training)
-confusionMatrix(testing$type,predict(modelFit,testing))
+modelFit <- train(x = trainPC, y = training$type,method="glm", preProcess="pca")
+confusionMatrix(testing$type,predict(modelFit,testPC))
 ```
 
 ---
