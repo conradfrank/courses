@@ -18,7 +18,8 @@ mode        : selfcontained # {standalone, draft}
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
 # make this an external chunk that can be included in any file
 options(width = 100)
-opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+library(knitr)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'E:/Conrad_github/courses/08_PracticalMachineLearning/026unsupervisedPrediction/fig/')
 
 options(xtable.type = 'html')
 knit_hooks$set(inline = function(x) {
@@ -46,8 +47,8 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 
 ## Iris example ignoring species labels
 
-```{r iris}
-data(iris); library(ggplot2)
+```{r iris, cache=TRUE}
+data(iris); library(ggplot2);library(caret)
 inTrain <- createDataPartition(y=iris$Species,
                               p=0.7, list=FALSE)
 training <- iris[inTrain,]
